@@ -10,57 +10,58 @@ import {
 } from 'react-router-dom';
 import './App.css';
 import AuthPage from '../auth/AuthPage';
+import TodoPage from '../todos/TodosPage';
 
 class App extends Component {
-state = {
-  token: window.localStorage.getItem('TOKEN')
-}
+  state = {
+    token: window.localStorage.getItem('TOKEN')
+  }
 
-handleUser = user => {
-  window.localStorage.setItem('TOKEN', user.token);
-  this.setState({ token: user.token });
-}
-render() {
-  const { token } = this.state;
+  handleUser = user => {
+    window.localStorage.setItem('TOKEN', user.token);
+    this.setState({ token: user.token });
+  }
+  render() {
+    const { token } = this.state;
 
-  return (
-    <div className="App">
-      <Router>
-        <Header/>
-        <main>
+    return (
+      <div className="App">
+        <Router>
+          <Header />
+          <main>
 
-          <Switch>
-            <Route path="/" exact={true}
-              render={routerProps => (
-                <Home {...routerProps}/>
-              )}
-            />
+            <Switch>
+              <Route path="/" exact={true}
+                render={routerProps => (
+                  <Home {...routerProps} />
+                )}
+              />
 
-            <Route path="/auth" exact={true}
-              render={routerProps => (
-                <AuthPage {...routerProps}
-                  onUser={this.handleUser}
-                />
-              )}
-            />
+              <Route path="/auth" exact={true}
+                render={routerProps => (
+                  <AuthPage {...routerProps}
+                    onUser={this.handleUser}
+                  />
+                )}
+              />
 
-            <Route path="/todos" exact={true}
-              render={routerProps => (
-                token ? <div>Todo Page</div> 
-                  : <Redirect to="/auth" />
-               
-              )}
-            />
+              <Route path="/todos" exact={true}
+                render={routerProps => (
+                  token ? <TodoPage {...routerProps} />
+                    : <Redirect to="/auth" />
 
-            <Redirect to="/" />
+                )}
+              />
 
-          </Switch>
-        </main>
-        <Footer/>
-      </Router>
-    </div>
-  );
-}
+              <Redirect to="/" />
+
+            </Switch>
+          </main>
+          <Footer />
+        </Router>
+      </div>
+    );
+  }
 
 }
 
