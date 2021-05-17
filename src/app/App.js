@@ -9,44 +9,48 @@ import {
   Redirect
 } from 'react-router-dom';
 import './App.css';
+import AuthPage from '../auth/AuthPage';
 
 class App extends Component {
+state = {
+  user: null
+}
 
-  render() {
-    return (
-      <div className="App">
-        <Router>
-          <Header/>
-          <main>
+render() {
+  return (
+    <div className="App">
+      <Router>
+        <Header/>
+        <main>
 
-            <Switch>
-              <Route path="/" exact={true}
-                render={routerProps => (
-                  <Home {...routerProps}/>
-                )}
-              />
+          <Switch>
+            <Route path="/" exact={true}
+              render={routerProps => (
+                <Home {...routerProps}/>
+              )}
+            />
 
-              <Route path="/resources" exact={true}
-                render={routerProps => (
-                  <div>Implement a page of resources</div>
-                )}
-              />
+            <Route path="/auth" exact={true}
+              render={routerProps => (
+                <AuthPage {...routerProps}/>
+              )}
+            />
 
-              <Route path="/resources/:id"
-                render={routerProps => (
-                  <div>Implement a page for id {routerProps.match.params.id}</div>
-                )}
-              />
+            <Route path="/resources/:id"
+              render={routerProps => (
+                <div>Implement a page for id {routerProps.match.params.id}</div>
+              )}
+            />
 
-              <Redirect to="/" />
+            <Redirect to="/" />
 
-            </Switch>
-          </main>
-          <Footer/>
-        </Router>
-      </div>
-    );
-  }
+          </Switch>
+        </main>
+        <Footer/>
+      </Router>
+    </div>
+  );
+}
 
 }
 
