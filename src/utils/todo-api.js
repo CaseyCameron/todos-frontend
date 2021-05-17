@@ -15,3 +15,12 @@ export async function signIn(credentials) {
 
   return response.body;
 }
+
+export async function addTodo(todo) {
+  const response = await request
+    .post('/api/todos')
+    .set('Authorization', window.localStorage.getItem('TOKEN'))
+    .send(todo);
+
+  return response.body;
+}
