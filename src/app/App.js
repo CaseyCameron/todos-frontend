@@ -13,10 +13,16 @@ import AuthPage from '../auth/AuthPage';
 
 class App extends Component {
 state = {
-  user: null
+  token: window.localStorage.getItem('TOKEN')
 }
 
+handleUser = user => {
+  window.localStorage.setItem('TOKEN', user.token);
+  this.setState({ token: user.token });
+}
 render() {
+  const { token } = this.state;
+
   return (
     <div className="App">
       <Router>
@@ -32,13 +38,17 @@ render() {
 
             <Route path="/auth" exact={true}
               render={routerProps => (
-                <AuthPage {...routerProps}/>
+                <AuthPage {...routerProps}
+                  onUser={this.handleUser}
+                />
               )}
             />
 
-            <Route path="/resources/:id"
+            <Route path="/todos" exact={true}
               render={routerProps => (
-                <div>Implement a page for id {routerProps.match.params.id}</div>
+                token ? <div>Todo Page</div> 
+                  : <Redirect to="/auth" />
+               
               )}
             />
 

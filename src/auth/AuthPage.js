@@ -29,11 +29,14 @@ export default class AuthPage extends Component {
   handleSubmit = async e => {
     e.preventDefault();
     const { isSignUp } = this.state;
+    const { onUser, history } = this.props;
+    
 
     try {
       const action = isSignUp ? signUp : signIn;
       const user = await action(this.state);
-      console.log(user);
+      onUser(user);
+      history.push('/');
     }
 
     catch (err) {
