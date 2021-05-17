@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { signUp, signIn } from '../utils/todo-api.js';
 import './AuthPage.css';
 
 export default class AuthPage extends Component {
@@ -25,23 +26,36 @@ export default class AuthPage extends Component {
     this.setState({ isSignUp: !this.state.isSignUp });
   }
 
-  handleSubmit = e => {
+  handleSubmit = async e => {
     e.preventDefault();
-    console.log(this.state);
+    const { isSignUp } = this.state;
+
+    try {
+      const action = isSignUp ? signUp : signIn;
+      const user = await action(this.state);
+      console.log(user);
+    }
+
+    catch (err) {
+      console.log(err.message);
+    }
+
   }
+
   render() {
     const { isSignUp, name, email, password } = this.state;
-      
+
     return (
       <form className="AuthPage" onSubmit={this.handleSubmit}>
-        <p>
-          <label>
-            <span>Name</span>
-            <input name="name" value ={name} required={true} 
-              onChange={this.handleNameChange}
-            />
-          </label>
-        </p>
+        {isSignUp &&
+          <p>
+            <label>
+              <span>Name</span>
+              <input name="name" value={name} required={true}
+                onChange={this.handleNameChange}
+              />
+            </label>
+          </p>}
         <p>
           <label>
             <span>Email</span>
