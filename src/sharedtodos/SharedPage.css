@@ -30,3 +30,7 @@ text-decoration: line-through;
 display: flex;
 justify-content: center;
 } 
+
+.currentUser {
+  background: green
+}

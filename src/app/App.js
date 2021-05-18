@@ -16,12 +16,16 @@ import './App.css';
 
 class App extends Component {
   state = {
-    token: window.localStorage.getItem('TOKEN')
+    token: window.localStorage.getItem('TOKEN'),
+    userId: window.localStorage.getItem('USER_ID'),
   }
 
   handleUser = user => {
     window.localStorage.setItem('TOKEN', user.token);
-    this.setState({ token: user.token });
+    window.localStorage.setItem('USER_ID', user.id);
+   
+    this.setState({ token: user.token, userId: user.id });
+    
   }
   render() {
     const { token } = this.state;
@@ -49,7 +53,7 @@ class App extends Component {
 
               <Route path="/shared" exact={true}
                 render={routerProps => (
-                  token ? <SharedPage {...routerProps} />
+                  token ? <SharedPage {...routerProps} userId={this.state.userId} />
                     : <Redirect to="/auth" />
                 )}
               />

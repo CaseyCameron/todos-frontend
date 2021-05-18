@@ -122,6 +122,7 @@ export default class TodosPage extends Component {
               </select>
             </label>
           </p>
+          <button>Add Todo</button>
         </form>
         <ul>
           {todos.map(todo => {

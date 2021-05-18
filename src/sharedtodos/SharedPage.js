@@ -19,13 +19,18 @@ export default class SharedPage extends Component {
 
   render() {
     const { todos } = this.state;
+    const { userId } = this.props;
+    const liStyle = { background: 'green' } ;
+    const liStyle2 = { background: 'lightsteelblue' };
+    console.log(userId);
     return (
       <div className="SharedPage">
         <p>Shared Todos</p>
         <ul>
           {todos.map(todo => {
-            return <li key={todo.id} >
-              <h3 className={todo.completed ? 'completed' : ''}>{todo.task}</h3>
+            console.log(userId, todo.userId);
+            return <li key={todo.id} style={Number(userId) === todo.userId ? liStyle : liStyle2} >
+              <h3 className={todo.completed ? 'completed' : 'asdfasdf'}>{todo.task}</h3>
               <h3 className="UserName">User: {todo.userName}</h3>
             </li>;
           })}
