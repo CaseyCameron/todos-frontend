@@ -1,14 +1,28 @@
 import { Component } from 'react';
-import { addTodo } from '../utils/todo-api.js';
+import { addTodo, getTodos } from '../utils/todo-api.js';
 import './TodosPage.css';
 
 export default class TodosPage extends Component {
   state = {
     task: '',
     shared: false,
-    completed: false
+    completed: false,
+    tasks: []
   }
 
+  async componentDidMount() {
+    try {
+      const todos = await getTodos();
+      this.setState({ tasks: todos });
+      console.log(todos);
+
+
+    }
+    catch (err){
+      console.log(err);
+
+    }
+  }
   handleAdd = async e => {
     e.preventDefault();
     const todo = this.state;
