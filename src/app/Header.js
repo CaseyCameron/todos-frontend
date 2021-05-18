@@ -7,7 +7,6 @@ class Header extends Component {
   handleSignOut = () => {
     window.localStorage.clear();
     window.location.reload();
-
   }
 
   render() {
