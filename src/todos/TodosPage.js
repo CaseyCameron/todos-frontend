@@ -50,9 +50,11 @@ export default class TodosPage extends Component {
   }
 
   handleDelete = async id => {
+    const { todos } = this.state;
     try {
-      const deletedTodo = await deleteTodo(id);
-      console.log(deletedTodo);
+      await deleteTodo(id);
+      const updatedTodos = todos.filter(task => task.id !== id);
+      this.setState({ todos: updatedTodos });
     }
     catch (err) {
       console.log(err);
