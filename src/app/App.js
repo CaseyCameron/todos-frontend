@@ -23,9 +23,9 @@ class App extends Component {
   handleUser = user => {
     window.localStorage.setItem('TOKEN', user.token);
     window.localStorage.setItem('USER_ID', user.id);
-   
+
     this.setState({ token: user.token, userId: user.id });
-    
+
   }
   render() {
     const { token } = this.state;
