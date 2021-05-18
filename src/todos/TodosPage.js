@@ -7,14 +7,14 @@ export default class TodosPage extends Component {
     task: '',
     shared: false,
     completed: false,
-    tasks: []
+    todos: []
   }
 
   async componentDidMount() {
     try {
       const todos = await getTodos();
-      this.setState({ tasks: todos });
-      console.log(todos);
+      this.setState({ todos: todos });
+      // console.log(todos);
 
 
     }
@@ -25,10 +25,27 @@ export default class TodosPage extends Component {
   }
   handleAdd = async e => {
     e.preventDefault();
-    const todo = this.state;
-    const addedTodo = await addTodo(todo);
+    const { task, todos } = this.state;
+    console.log(task);
+    try {
+      const addedTodo = await addTodo(this.state);
+      const updatedTodos = [...todos, addedTodo];
+      console.log(updatedTodos);
+      this.setState({ 
+        todos: updatedTodos,
+        task: ''
+      }
+      );
 
-    console.log('ADDED', addedTodo);
+
+    }
+    catch (err) {
+      console.log(err.message);
+
+    }
+    
+
+    // console.log('ADDED', addedTodo);
   }
 
   handleTaskChange = ({ target }) => {
@@ -58,7 +75,7 @@ export default class TodosPage extends Component {
               <span>Shared</span>
               <select value={shared} onChange={this.handleSharedChange}>
                 <option value={true}>yes</option>
-                <option value={false} selected>no</option>
+                <option value={false} defaultValue>no</option>
               </select>
             </label>
           </p>
