@@ -109,12 +109,12 @@ export default class TodosPage extends Component {
         </form>
         <ul>
           {todos.map(todo => {
-            return <li key={todo.id}>
-              <h3>{todo.task}</h3>
-              <h3>{todo.completed}</h3>
-              <h3>{todo.shared}</h3>
-              <button onClick={() => this.handleDelete(todo.id)}>X</button>
+            return <li key={todo.id} >
+              <h3 className={todo.completed ? 'completed' : ''}>{todo.task}</h3>
               <input type="checkbox" onChange={ () => this.handleCheckboxChange(todo)}></input>
+              <h5>{todo.shared ? 'Shared' : 'Private'}</h5>
+              <button onClick={() => this.handleDelete(todo.id)}>X</button>
+             
             </li>;
           })}
         </ul>
