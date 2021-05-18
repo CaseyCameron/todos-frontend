@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { addTodo, getTodos } from '../utils/todo-api.js';
+import { addTodo, getTodos, deleteTodo } from '../utils/todo-api.js';
 import './TodosPage.css';
 
 export default class TodosPage extends Component {
@@ -14,11 +14,8 @@ export default class TodosPage extends Component {
     try {
       const todos = await getTodos();
       this.setState({ todos: todos });
-      // console.log(todos);
-
-
     }
-    catch (err){
+    catch (err) {
       console.log(err);
 
     }
@@ -31,21 +28,17 @@ export default class TodosPage extends Component {
       const addedTodo = await addTodo(this.state);
       const updatedTodos = [...todos, addedTodo];
       console.log(updatedTodos);
-      this.setState({ 
+      this.setState({
         todos: updatedTodos,
         task: ''
       }
       );
-
 
     }
     catch (err) {
       console.log(err.message);
 
     }
-    
-
-    // console.log('ADDED', addedTodo);
   }
 
   handleTaskChange = ({ target }) => {
@@ -54,6 +47,17 @@ export default class TodosPage extends Component {
 
   handleSharedChange = ({ target }) => {
     this.setState({ shared: target.value });
+  }
+
+  handleDelete = async id => {
+    try {
+      const deletedTodo = await deleteTodo(id);
+      console.log(deletedTodo);
+    }
+    catch (err) {
+      console.log(err);
+    }
+    //console.log('gonna delete', id);
   }
 
   render() {
@@ -86,9 +90,8 @@ export default class TodosPage extends Component {
               <h3>{todo.task}</h3>
               <h3>{todo.completed}</h3>
               <h3>{todo.shared}</h3>
-              <button>X</button>
+              <button onClick={() => this.handleDelete(todo.id)}>X</button>
             </li>;
-
           })}
         </ul>
       </div>
