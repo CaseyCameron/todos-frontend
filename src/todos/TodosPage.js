@@ -57,7 +57,7 @@ export default class TodosPage extends Component {
   }
 
   render() {
-    const { task, shared } = this.state;
+    const { task, shared, todos } = this.state;
 
     return (
       <div className="TodosPage">
@@ -80,6 +80,17 @@ export default class TodosPage extends Component {
             </label>
           </p>
         </form>
+        <ul>
+          {todos.map(todo => {
+            return <li key={todo.id}>
+              <h3>{todo.task}</h3>
+              <h3>{todo.completed}</h3>
+              <h3>{todo.shared}</h3>
+              <button>X</button>
+            </li>;
+
+          })}
+        </ul>
       </div>
     );
   }
