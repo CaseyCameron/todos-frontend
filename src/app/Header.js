@@ -4,16 +4,17 @@ import { NavLink } from 'react-router-dom';
 
 class Header extends Component {
 
-  render() { 
+  render() {
     return (
       <header className="Header">
 
         <h1>Todo</h1>
         <NavLink to="/todos">Todos Page</NavLink>
+        <NavLink to="/sharedtodos">Shared Todos Page</NavLink>
       </header>
     );
   }
 
 }
- 
+
 export default Header;

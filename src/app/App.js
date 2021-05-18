@@ -1,16 +1,18 @@
 import { Component } from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import Home from '../home/Home';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect
 } from 'react-router-dom';
-import './App.css';
+
+import Header from './Header';
+import Footer from './Footer';
+import Home from '../home/Home';
 import AuthPage from '../auth/AuthPage';
 import TodoPage from '../todos/TodosPage';
+import SharedPage from '../sharedtodos/SharedPage';
+import './App.css';
 
 class App extends Component {
   state = {
@@ -45,11 +47,17 @@ class App extends Component {
                 )}
               />
 
+              <Route path="/shared/" exact={true}
+                render={routerProps => (
+                  token ? <SharedPage {...routerProps} />
+                    : <Redirect to="/auth" />
+                )}
+              />
+
               <Route path="/todos" exact={true}
                 render={routerProps => (
                   token ? <TodoPage {...routerProps} />
                     : <Redirect to="/auth" />
-
                 )}
               />
 
