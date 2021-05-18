@@ -1,5 +1,11 @@
 import { Component } from 'react';
-import { addTodo, getTodos, deleteTodo, updateTodoCompleted } from '../utils/todo-api.js';
+import {
+  addTodo,
+  getTodos,
+  deleteTodo,
+  updateTodoCompleted,
+  updateTodoShared
+} from '../utils/todo-api.js';
 import './TodosPage.css';
 
 export default class TodosPage extends Component {
@@ -59,13 +65,11 @@ export default class TodosPage extends Component {
     catch (err) {
       console.log(err);
     }
-    //console.log('gonna delete', id);
   }
 
   handleCheckboxChange = async (todo) => {
     const { todos } = this.state;
-    
-    console.log(todo.completed);
+
     try {
       todo.completed = todo.completed ? false : true;
       const updatedTodo = await updateTodoCompleted(todo);
@@ -78,10 +82,26 @@ export default class TodosPage extends Component {
     }
     catch (err) {
       console.log(err.message);
+    }
+  }
+
+  handleSharedToggle = async (todo) => {
+    const { todos } = this.state;
+
+    try {
+      todo.shared = todo.shared ? false : true;
+      const updatedTodo = await updateTodoShared(todo);
+      const updatedTodos = todos.map(task => {
+        return task.id === todo.id ? updatedTodo : task;
+      });
+      this.setState({ todos: updatedTodos });
 
     }
-   
+    catch (err) {
+      console.log(err.message);
+    }
   }
+
 
   render() {
     const { task, shared, todos } = this.state;
@@ -111,10 +131,10 @@ export default class TodosPage extends Component {
           {todos.map(todo => {
             return <li key={todo.id} >
               <h3 className={todo.completed ? 'completed' : ''}>{todo.task}</h3>
-              <input type="checkbox" onChange={ () => this.handleCheckboxChange(todo)}></input>
-              <h5>{todo.shared ? 'Shared' : 'Private'}</h5>
+              <input type="checkbox" onChange={() => this.handleCheckboxChange(todo)}></input>
+              <button className="shared" onClick={() => this.handleSharedToggle(todo)}>{todo.shared ? 'Shared' : 'Private'}</button>
               <button onClick={() => this.handleDelete(todo.id)}>X</button>
-             
+
             </li>;
           })}
         </ul>

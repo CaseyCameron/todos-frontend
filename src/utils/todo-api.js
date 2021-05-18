@@ -41,10 +41,21 @@ export async function deleteTodo(id) {
 
   return response.body;
 }
+
 export async function updateTodoCompleted(todo) {
 
   const response = await request
     .put(`/api/todos/${todo.id}/completed`)
+    .set('Authorization', window.localStorage.getItem('TOKEN'))
+    .send(todo);
+
+  return response.body;
+}
+
+export async function updateTodoShared(todo) {
+
+  const response = await request
+    .put(`/api/todos/${todo.id}/shared`)
     .set('Authorization', window.localStorage.getItem('TOKEN'))
     .send(todo);
 
