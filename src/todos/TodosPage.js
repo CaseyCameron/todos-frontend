@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { addTodo, getTodos, deleteTodo } from '../utils/todo-api.js';
+import { addTodo, getTodos, deleteTodo, updateTodoCompleted } from '../utils/todo-api.js';
 import './TodosPage.css';
 
 export default class TodosPage extends Component {
@@ -62,6 +62,27 @@ export default class TodosPage extends Component {
     //console.log('gonna delete', id);
   }
 
+  handleCheckboxChange = async (todo) => {
+    const { todos } = this.state;
+    
+    console.log(todo.completed);
+    try {
+      todo.completed = todo.completed ? false : true;
+      const updatedTodo = await updateTodoCompleted(todo);
+      console.log(updatedTodo);
+      const updatedTodos = todos.map(task => {
+        return task.id === todo.id ? updatedTodo : task;
+      });
+      this.setState({ todos: updatedTodos });
+
+    }
+    catch (err) {
+      console.log(err.message);
+
+    }
+   
+  }
+
   render() {
     const { task, shared, todos } = this.state;
 
@@ -93,6 +114,7 @@ export default class TodosPage extends Component {
               <h3>{todo.completed}</h3>
               <h3>{todo.shared}</h3>
               <button onClick={() => this.handleDelete(todo.id)}>X</button>
+              <input type="checkbox" onChange={ () => this.handleCheckboxChange(todo)}></input>
             </li>;
           })}
         </ul>
