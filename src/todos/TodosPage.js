@@ -26,6 +26,7 @@ export default class TodosPage extends Component {
 
     }
   }
+
   handleAdd = async e => {
     e.preventDefault();
     const { task, todos } = this.state;
@@ -37,13 +38,10 @@ export default class TodosPage extends Component {
       this.setState({
         todos: updatedTodos,
         task: ''
-      }
-      );
-
+      });
     }
     catch (err) {
       console.log(err.message);
-
     }
   }
 
@@ -78,7 +76,6 @@ export default class TodosPage extends Component {
         return task.id === todo.id ? updatedTodo : task;
       });
       this.setState({ todos: updatedTodos });
-
     }
     catch (err) {
       console.log(err.message);
@@ -95,7 +92,6 @@ export default class TodosPage extends Component {
         return task.id === todo.id ? updatedTodo : task;
       });
       this.setState({ todos: updatedTodos });
-
     }
     catch (err) {
       console.log(err.message);

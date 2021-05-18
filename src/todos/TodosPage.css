@@ -35,6 +35,7 @@
     height: 25px;
     cursor: pointer;
   }
+  
 .completed {
   text-decoration: line-through;
 }

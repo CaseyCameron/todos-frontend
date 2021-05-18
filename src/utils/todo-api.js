@@ -33,6 +33,14 @@ export async function getTodos() {
   return response.body;
 }
 
+export async function getSharedTodos() {
+  const response = await request
+    .get('/api/todos')
+    .set('Authorization', window.localStorage.getItem('TOKEN'));
+
+  return response.body;
+}
+
 export async function deleteTodo(id) {
 
   const response = await request

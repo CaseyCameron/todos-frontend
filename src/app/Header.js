@@ -10,7 +10,7 @@ class Header extends Component {
 
         <h1>Todo</h1>
         <NavLink to="/todos">Todos Page</NavLink>
-        <NavLink to="/sharedtodos">Shared Todos Page</NavLink>
+        <NavLink to="/shared">Shared Todos Page</NavLink>
       </header>
     );
   }

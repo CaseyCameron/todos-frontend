@@ -47,7 +47,7 @@ class App extends Component {
                 )}
               />
 
-              <Route path="/shared/" exact={true}
+              <Route path="/shared" exact={true}
                 render={routerProps => (
                   token ? <SharedPage {...routerProps} />
                     : <Redirect to="/auth" />
