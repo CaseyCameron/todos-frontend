@@ -1,0 +1,46 @@
+.TodosPage {
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .TodosPage li {
+    width: 50%;
+    margin: 10px 0;
+    background: lightsteelblue;
+    padding: 5px;
+    display: grid;
+    grid-template-columns: auto 20px 50px 40px;
+    grid-gap: 10px;
+    align-items: center;
+  }
+  
+  .TodosPage li h3{
+    font-weight: bolder;
+  }
+  
+  .TodosPage li .delete{
+    color: white;
+    background: red;
+    font-weight: bold;
+    border: 1px solid red;
+  }
+  
+  .TodosPage li .delete{
+    color: white;
+    background: red;
+    font-weight: bold;
+    border: 0;
+    height: 25px;
+    cursor: pointer;
+  }
+  
+.completed {
+  text-decoration: line-through;
+}
+
+.TodosPage .shared {
+  display: flex;
+  justify-content: center;
+} 
